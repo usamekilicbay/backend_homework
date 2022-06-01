@@ -64,8 +64,6 @@ namespace Continero.Homework
         {
             try
             {
-                // Potential issue 1: sourceStream not closed. It might cause issues for other reading operations.
-                // Potential issue 2: Also it will effect the memory because not disposed as well. I would use "using  statement" to avoid these issues.
                 using FileStream sourceStream = File.Open(sourceFileName, FileMode.Open);
                 using StreamReader streamReader = new(sourceStream);
                 return streamReader.ReadToEnd();
