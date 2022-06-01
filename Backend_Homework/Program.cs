@@ -24,7 +24,7 @@ namespace Continero.Homework
 
             // Potential issue 3: input declared inside of try block program can't reach it.
             string serializedDoc = GetConvertedFile(fileContext);
-            
+
             WriteFile(targetFileName, serializedDoc);
 
 
@@ -41,17 +41,25 @@ namespace Continero.Homework
                 Text = xdoc.Root.Element("text").Value
             };
 
-            return  JsonConvert.SerializeObject(doc);
+            return JsonConvert.SerializeObject(doc);
         }
 
         private static void WriteFile(string targetFileName, string serializedDoc)
         {
             // Potential issue 5: This part of code should be inside of try-catch blocks for avoiding possible issues while writing/creating the file.
             // Potential issue 6: targetStream and sw should closed and disposed.
-            using FileStream targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write);
-            // Potential issue 7: As long as sw is not closed or flushed, writing operation won't be completed. Application might not throw errors but writed file will be empty.
-            using StreamWriter streamWriter = new(targetStream);
-            streamWriter.Write(serializedDoc);
+            try
+            {
+                using FileStream targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write);
+                // Potential issue 7: As long as sw is not closed or flushed, writing operation won't be completed. Application might not throw errors but writed file will be empty.
+                using StreamWriter streamWriter = new(targetStream);
+                streamWriter.Write(serializedDoc);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // Reads the file and returns content if it's successful. Otherwise throws exception.
