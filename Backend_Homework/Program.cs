@@ -46,12 +46,9 @@ namespace Continero.Homework
 
         private static void WriteFile(string targetFileName, string serializedDoc)
         {
-            // Potential issue 5: This part of code should be inside of try-catch blocks for avoiding possible issues while writing/creating the file.
-            // Potential issue 6: targetStream and sw should closed and disposed.
             try
             {
                 using FileStream targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write);
-                // Potential issue 7: As long as sw is not closed or flushed, writing operation won't be completed. Application might not throw errors but writed file will be empty.
                 using StreamWriter streamWriter = new(targetStream);
                 streamWriter.Write(serializedDoc);
             }
