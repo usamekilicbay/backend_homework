@@ -23,7 +23,7 @@ namespace Continero.Homework
             string fileContext = ReadFile(sourceFileName);
 
             // Potential issue 3: input declared inside of try block program can't reach it.
-            string serializedDoc = GetConvertedFile(targetFileName, fileContext);
+            string serializedDoc = GetConvertedFile(fileContext);
             
             WriteFile(targetFileName, serializedDoc);
 
@@ -31,7 +31,7 @@ namespace Continero.Homework
             // Lastly, this algorithms must be seperated for not violating SOLID principles. I can't look at them anymore, it hurts!
         }
 
-        private static string GetConvertedFile(string targetFileName, string fileContext)
+        private static string GetConvertedFile(string fileContext)
         {
             XDocument xdoc = XDocument.Parse(fileContext);
             // Potential issue 4: title and text nodes might not be exist in xml file.
