@@ -20,13 +20,23 @@ namespace Continero.Homework
 
             string targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Document1.json");
 
-            string fileContext = ReadFile(sourceFileName);
+            try
+            {
 
-            // Potential issue 3: input declared inside of try block program can't reach it.
-            string serializedDoc = GetConvertedFile(fileContext);
+                string fileContext = ReadFile(sourceFileName);
 
-            WriteFile(targetFileName, serializedDoc);
+                // Potential issue 3: input declared inside of try block program can't reach it.
+                string serializedDoc = GetConvertedFile(fileContext);
 
+                WriteFile(targetFileName, serializedDoc);
+
+            }
+            catch (Exception ex)
+            {
+               
+            }
+
+            Console.ReadKey();
 
             // Lastly, this algorithms must be seperated for not violating SOLID principles. I can't look at them anymore, it hurts!
         }
@@ -70,7 +80,7 @@ namespace Continero.Homework
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("An error occured while reading the file", ex);
             }
         }
     }
