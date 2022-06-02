@@ -62,10 +62,9 @@ namespace Continero.Homework
                 using StreamWriter streamWriter = new(targetStream);
                 streamWriter.Write(serializedDoc);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new Exception("An error occured while writing the file", ex);
             }
         }
 
