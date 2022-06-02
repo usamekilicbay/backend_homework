@@ -43,15 +43,22 @@ namespace Continero.Homework
 
         private static string GetConvertedFile(string fileContext)
         {
-            XDocument xdoc = XDocument.Parse(fileContext);
-            // Potential issue 4: title and text nodes might not be exist in xml file.
-            Document doc = new()
+            try
             {
-                Title = xdoc.Root.Element("title").Value,
-                Text = xdoc.Root.Element("text").Value
-            };
+                XDocument xdoc = XDocument.Parse(fileContext);
+                // Potential issue 4: title and text nodes might not be exist in xml file.
+                Document doc = new()
+                {
+                    Title = xdoc.Root.Element("title").Value,
+                    Text = xdoc.Root.Element("text").Value
+                };
 
-            return JsonConvert.SerializeObject(doc);
+                return JsonConvert.SerializeObject(doc);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured while converting the file", ex);
+            }
         }
 
         private static void WriteFile(string targetFileName, string serializedDoc)
