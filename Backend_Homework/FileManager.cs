@@ -9,6 +9,8 @@ namespace Backend_Homework
             _fileReader = fileReader;
             _fileConverter = fileConverter;
             _fileWriter = fileWriter;
+
+            RunConvert();
         }
 
         const string SOURCE_FILE = "Source Files";
@@ -18,7 +20,7 @@ namespace Backend_Homework
         private readonly IFileConverter _fileConverter;
         private readonly IFileWriter _fileWriter;
 
-        public void RunConvert()
+        private void RunConvert()
         {
             Console.WriteLine("Enter the name of the file you want to upload (with extension)");
             string sourceFileName = Console.ReadLine();
@@ -41,7 +43,8 @@ namespace Backend_Homework
                 Console.WriteLine(ex.InnerException);
             }
 
-            Console.WriteLine("Press a key to quit");
+            Console.WriteLine("Operation successful!");
+            Console.WriteLine("Press a key to quit...");
 
             Console.ReadKey();
         }
