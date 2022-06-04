@@ -20,12 +20,14 @@ namespace Backend_Homework
 
         public void RunConvert()
         {
-
             Console.WriteLine("Enter the name of the file you want to upload (with extension)");
             string sourceFileName = Console.ReadLine();
-            
+
+            Console.WriteLine("Enter a name for the new file (with extension)");
+            string targetFileName = Console.ReadLine();
+
             string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), $"{SOURCE_FILE}\\{sourceFileName}");
-            string targetPath = Path.Combine(Directory.GetCurrentDirectory(), $"{TARGET_FILE}\\{"Docgg.json"}");
+            string targetPath = Path.Combine(Directory.GetCurrentDirectory(), $"{TARGET_FILE}\\{targetFileName}");
 
             try
             {
