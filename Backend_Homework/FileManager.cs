@@ -15,22 +15,12 @@ namespace Backend_Homework
         private readonly IFileConverter _fileConverter;
         private readonly IFileWriter _fileWriter;
 
-        public void RunConvert(string sourceFileName)
+        public void RunConvert()
         {
-            // I'm not sure about these lines yet, I'll consider them later.
-            //string sourceFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Document1.xml");
-
-            //string targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Document1.json");
-            //string sourceFileName = AppDomain.CurrentDomain.BaseDirectory;
+            string sourceFileName = Console.ReadLine();
             string path = Directory.GetCurrentDirectory();
-            Console.WriteLine(path);
             string sourcePath = Path.Combine(path, $"Source Files\\{sourceFileName}");
-            Console.WriteLine(sourcePath);
-
-            //string sourceFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\Source Files\\Document1.xml");
-
             string targetPath = Path.Combine(Environment.CurrentDirectory, "\\Docgg.json");
-            //string targetFileName = Path.Combine(Environment.CurrentDirectory, );
 
             try
             {
