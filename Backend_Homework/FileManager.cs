@@ -11,16 +11,21 @@ namespace Backend_Homework
             _fileWriter = fileWriter;
         }
 
+        const string SOURCE_FILE = "Source Files";
+        const string TARGET_FILE = "Target Files";
+
         private readonly IFileReader _fileReader;
         private readonly IFileConverter _fileConverter;
         private readonly IFileWriter _fileWriter;
 
         public void RunConvert()
         {
+
+            Console.WriteLine("Enter the name of the file you want to upload (with extension)");
             string sourceFileName = Console.ReadLine();
-            string path = Directory.GetCurrentDirectory();
-            string sourcePath = Path.Combine(path, $"Source Files\\{sourceFileName}");
-            string targetPath = Path.Combine(Environment.CurrentDirectory, "\\Docgg.json");
+            
+            string sourcePath = Path.Combine(Directory.GetCurrentDirectory(), $"{SOURCE_FILE}\\{sourceFileName}");
+            string targetPath = Path.Combine(Directory.GetCurrentDirectory(), $"{TARGET_FILE}\\{"Docgg.json"}");
 
             try
             {
