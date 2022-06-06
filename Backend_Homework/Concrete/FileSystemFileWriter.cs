@@ -1,19 +1,20 @@
 ﻿using Backend_Homework.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend_Homework.Concrete
 {
     internal class FileSystemFileWriter : IFileWriter
     {
-        public void WriteFile(string targetFileName, string content)
+        const string TARGET_FOLDER = "Target Files";
+
+        public void WriteFile(string content)
         {
+            string targetFileName = GetTargetFileName();
+
             try
             {
-                using FileStream targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write);
+                string targetPath = GetTargetPath(targetFileName);
+
+                using FileStream targetStream = File.Open(targetPath, FileMode.Create, FileAccess.Write);
                 using StreamWriter streamWriter = new(targetStream);
                 streamWriter.Write(content);
             }
@@ -21,6 +22,27 @@ namespace Backend_Homework.Concrete
             {
                 throw new Exception("An error occured while writing the file", ex);
             }
+        }
+
+        public string GetTargetPath(string targetFileName)
+        {
+            string targetPath = Path.Combine(Directory.GetCurrentDirectory(), TARGET_FOLDER);
+
+            if (!Directory.Exists(targetPath))
+                Directory.CreateDirectory(targetPath);
+
+            return Path.Combine(targetPath, targetFileName);
+        }
+
+        public string GetTargetFileName()
+        {
+            string targetFileName;
+            do
+            {
+                Console.WriteLine("Enter a name for the new file (with extension)");
+                targetFileName = Console.ReadLine();
+            } while (string.IsNullOrEmpty(targetFileName));
+            return targetFileName;
         }
     }
 }
