@@ -23,7 +23,8 @@ namespace Backend_Homework
             {
                 string fileContext = _fileReader.ReadFile(_fileReader.GetSourcePath());
                 string serializedDoc = _fileConverter.GetConvertedFile(fileContext);
-                _fileWriter.WriteFile(serializedDoc);
+
+                _fileWriter.WriteFile(_fileWriter.GetTargetPath(_fileWriter.GetTargetFileName()), serializedDoc);
                 Console.WriteLine("Operation successful!");
             }
             catch (Exception ex)
