@@ -26,5 +26,11 @@ namespace backend_homework_test
         {
             Assert.Throws<Exception>(()=> new FileSystemFileReader().ReadFile("random\\path"));
         }
+        
+        [Fact]
+        public void FileRead_InvalidFileNameShouldFail()
+        {
+            Assert.Throws<Exception>(()=> new FileSystemFileReader().ReadFile("C:\\Users\\usame\\source\\repos\\backend_homework\\Backend_Homework\\Source Files\\Documen1.xml"));
+        }
     }
 }
