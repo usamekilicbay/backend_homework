@@ -26,7 +26,7 @@ namespace Backend_Homework.Concrete
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occured while desealization from JSON", ex.Message);
+                throw new Exception($"An error occured while desealization from JSON", ex);
             }
         }
     }
