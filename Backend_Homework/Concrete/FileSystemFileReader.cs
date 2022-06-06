@@ -1,15 +1,10 @@
 ﻿using Backend_Homework.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Backend_Homework.Concrete
 {
     public class FileSystemFileReader : IFileReader
     {
-        const string SOURCE_FOLDER = "Source Files";
+        public const string SOURCE_FOLDER = "Source Files";
 
         public string ReadFile(string sourcePath)
         {
