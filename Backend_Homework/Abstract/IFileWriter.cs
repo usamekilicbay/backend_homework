@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Backend_Homework.Abstract
 {
-    internal interface IFileWriter
+    public interface IFileWriter
     {
         void WriteFile(string context);
+        string GetTargetPath(string targetFileName);
+        string GetTargetFileName();
     }
 }
