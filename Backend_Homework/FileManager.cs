@@ -21,7 +21,7 @@ namespace Backend_Homework
         {
             try
             {
-                string fileContext = _fileReader.ReadFile();
+                string fileContext = _fileReader.ReadFile(_fileReader.GetSourcePath());
                 string serializedDoc = _fileConverter.GetConvertedFile(fileContext);
                 _fileWriter.WriteFile(serializedDoc);
                 Console.WriteLine("Operation successful!");
