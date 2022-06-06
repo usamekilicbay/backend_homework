@@ -14,5 +14,11 @@ namespace backend_homework_test
 
             Assert.True(actual.Length > 0);
         }
+
+        [Fact]
+        public void FileRead_NullPathShouldFail()
+        {
+            Assert.Throws<Exception>(()=> new FileSystemFileReader().ReadFile(""));
+        }
     }
 }
