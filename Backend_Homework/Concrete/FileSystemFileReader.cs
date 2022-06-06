@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Backend_Homework.Concrete
 {
-    internal class FileSystemFileReader : IFileReader
+    public class FileSystemFileReader : IFileReader
     {
         const string SOURCE_FOLDER = "Source Files";
 
-        public string ReadFile()
+        public string ReadFile(string sourcePath)
         {
             try
             {
-                using FileStream sourceStream = File.Open(GetSourcePath(), FileMode.Open);
+                using FileStream sourceStream = File.Open(sourcePath, FileMode.Open);
                 using StreamReader streamReader = new(sourceStream);
                 return streamReader.ReadToEnd();
             }
