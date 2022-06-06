@@ -8,6 +8,6 @@ namespace Backend_Homework.Abstract
 {
     internal interface IFileWriter
     {
-        void WriteFile(string fileName, string context);
+        void WriteFile(string context);
     }
 }
