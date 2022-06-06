@@ -6,14 +6,10 @@ namespace Backend_Homework.Concrete
     {
         const string TARGET_FOLDER = "Target Files";
 
-        public void WriteFile(string content)
+        public void WriteFile(string targetPath, string content)
         {
-            string targetFileName = GetTargetFileName();
-
             try
             {
-                string targetPath = GetTargetPath(targetFileName);
-
                 using FileStream targetStream = File.Open(targetPath, FileMode.Create, FileAccess.Write);
                 using StreamWriter streamWriter = new(targetStream);
                 streamWriter.Write(content);
