@@ -10,20 +10,34 @@ namespace Backend_Homework.Concrete
     {
         public Document GetDocument(string fileContent)
         {
-            XDocument xdoc = XDocument.Parse(fileContent);
-            return new Document()
+            try
             {
-                Title = xdoc.Root.Element("title").Value,
-                Text = xdoc.Root.Element("text").Value
-            };
+                XDocument xdoc = XDocument.Parse(fileContent);
+                return new Document()
+                {
+                    Title = xdoc.Root.Element("title").Value,
+                    Text = xdoc.Root.Element("text").Value
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured while converting file from XML", ex);
+            }
         }
 
         public string GetConvertedFile(Document document)
         {
-            using StringWriter stringWriter = new();
-            XmlSerializer xmlSerializer = new(typeof(Document));
-            xmlSerializer.Serialize(stringWriter, document);
-            return stringWriter.ToString();
+            try
+            {
+                using StringWriter stringWriter = new();
+                XmlSerializer xmlSerializer = new(typeof(Document));
+                xmlSerializer.Serialize(stringWriter, document);
+                return stringWriter.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occured while converting file to XML", ex);
+            }
         }
     }
 }
