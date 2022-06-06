@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Continero.Homework;
 
 namespace Backend_Homework.Abstract
 {
     public interface IFileConverter
     {
-        string GetConvertedFile(string context);
+        string GetConvertedFile(Document document);
+        Document GetDocument(string fileContent);
     }
 }
