@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using Newtonsoft.Json;
+using Backend_Homework;
+using Backend_Homework.Abstract;
+using Backend_Homework.Concrete;
+
 namespace Continero.Homework
 {
     public class Document
@@ -14,73 +17,114 @@ namespace Continero.Homework
     {
         static void Main(string[] args)
         {
-            // I'm not sure about these lines yet, I'll consider them later.
-            string sourceFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Source Files\\Document1.xml");
+            int storageInputMax = Enum.GetNames(typeof(StorageOption)).Length - 1;
+            int convertInputMax = Enum.GetNames(typeof(ConvertOption)).Length - 1;
 
+            StorageOption storageReadOption = GetReadStorageOption(storageInputMax);
+            ConvertOption convertOption = GetConvertOption(convertInputMax);
+            StorageOption storageWriteOption = GetWriteStorageOption(storageInputMax);
 
-            string targetFileName = Path.Combine(Environment.CurrentDirectory, "..\\..\\..\\Target Files\\Document1.json");
-
-            try
-            {
-                string fileContext = ReadFile(sourceFileName);
-                string serializedDoc = GetConvertedFile(fileContext);
-                WriteFile(targetFileName, serializedDoc);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.InnerException);
-            }
-
-            Console.ReadKey();
+            FileManager fileManager = new(GetFileReader(storageReadOption),
+                                          GetFileConverter(convertOption),
+                                          GetFileWriter(storageWriteOption));
         }
 
-        private static string GetConvertedFile(string fileContext)
+        #region Get Option Input
+        private static StorageOption GetWriteStorageOption(int storageInputMax)
         {
-            try
-            {
-                XDocument xdoc = XDocument.Parse(fileContext);
-                Document doc = new()
-                {
-                    Title = xdoc.Root.Element("title").Value,
-                    Text = xdoc.Root.Element("text").Value
-                };
+            int input;
+            bool isInputWithInRange;
 
-                return JsonConvert.SerializeObject(doc);
-            }
-            catch (Exception ex)
+            do
             {
-                throw new Exception("An error occured while converting the file", ex);
-            }
+                ShowMessage.AskForWriteStorage();
+                input = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("###################");
+
+                isInputWithInRange = input >= 0 && input <= storageInputMax;
+
+                if (!isInputWithInRange)
+                    Console.WriteLine($"Please enter a number within range 0 - {storageInputMax}");
+
+            } while (!isInputWithInRange);
+            StorageOption storageWriteOption = (StorageOption)input;
+            return storageWriteOption;
         }
 
-        private static void WriteFile(string targetFileName, string serializedDoc)
+        private static ConvertOption GetConvertOption(int convertInputMax)
         {
-            try
+            int input;
+            bool isInputWithInRange;
+
+            do
             {
-                using FileStream targetStream = File.Open(targetFileName, FileMode.Create, FileAccess.Write);
-                using StreamWriter streamWriter = new(targetStream);
-                streamWriter.Write(serializedDoc);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occured while writing the file", ex);
-            }
+                ShowMessage.AskForConvertType();
+                input = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("###################");
+
+                isInputWithInRange = input >= 0 && input <= convertInputMax;
+
+                if (!isInputWithInRange)
+                    Console.WriteLine($"Please enter a number within range 0 - {convertInputMax}");
+
+            } while (!isInputWithInRange);
+            return (ConvertOption)input;
         }
 
-        // Reads the file and returns content if it's successful. Otherwise throws exception.
-        private static string ReadFile(string sourceFileName)
+        private static StorageOption GetReadStorageOption(int storageInputMax)
         {
-            try
+            int input;
+            bool isInputWithInRange;
+
+            do
             {
-                using FileStream sourceStream = File.Open(sourceFileName, FileMode.Open);
-                using StreamReader streamReader = new(sourceStream);
-                return streamReader.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occured while reading the file", ex);
-            }
+                ShowMessage.AskForReadStorage();
+                input = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("###################");
+
+                isInputWithInRange = input >= 0 && input <= storageInputMax;
+
+                if (!isInputWithInRange)
+                    Console.WriteLine($"Please enter a number within range 0 - {storageInputMax}");
+
+            } while (!isInputWithInRange);
+            return (StorageOption)input;
         }
+        #endregion 
+
+        #region Get Injection
+        private static IFileConverter GetFileConverter(ConvertOption convertOption)
+        {
+            return convertOption switch
+            {
+                ConvertOption.TO_JSON => new JsonConverter(),
+                ConvertOption.TO_XML => new XmlConverter(),
+                ConvertOption.TO_YAML => new YamlConverter(),
+                _ => new JsonConverter(),
+            };
+        }
+
+        private static IFileReader GetFileReader(StorageOption storageReadOption)
+        {
+            return storageReadOption switch
+            {
+                StorageOption.FILE_SYSTEM => new FileSystemFileReader(),
+                StorageOption.CLOUD => new CloudStorageFileReader(),
+                StorageOption.HTTP => new CloudStorageFileReader(),
+                _ => new CloudStorageFileReader(),
+            };
+        }
+
+        private static IFileWriter GetFileWriter(StorageOption storageWriteOption)
+        {
+            return storageWriteOption switch
+            {
+                StorageOption.FILE_SYSTEM => new FileSystemFileWriter(),
+                StorageOption.CLOUD => new CloudStorageFileWriter(),
+                StorageOption.HTTP => new CloudStorageFileWriter(),
+                _ => new CloudStorageFileWriter(),
+            };
+        }
+        #endregion
     }
 }
