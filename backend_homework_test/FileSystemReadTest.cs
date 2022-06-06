@@ -3,7 +3,7 @@ using Backend_Homework.Concrete;
 
 namespace backend_homework_test
 {
-    public class FileSystemTest
+    public class FileSystemReadTest
     {
         [Fact]
         public void FileRead_ValidPathShouldWork()
