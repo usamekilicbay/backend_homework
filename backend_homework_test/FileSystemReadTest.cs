@@ -10,7 +10,7 @@ namespace backend_homework_test
         {
             IFileReader fileReader = new FileSystemFileReader();
             
-            string actual = fileReader.ReadFile("C:\\Users\\usame\\source\\repos\\backend_homework\\Backend_Homework\\Source Files\\Document1.xml");
+            string actual = fileReader.ReadFile(Path.Combine(Directory.GetCurrentDirectory(), FileSystemFileReader.SOURCE_FOLDER, "Document1.xml"));
 
             Assert.True(actual.Length > 0);
         }
