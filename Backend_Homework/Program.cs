@@ -20,24 +20,28 @@ namespace Continero.Homework
             int storageInputMax = Enum.GetNames(typeof(StorageOption)).Length - 1;
             int convertInputMax = Enum.GetNames(typeof(ConvertOption)).Length - 1;
 
-            StorageOption storageReadOption = GetReadStorageOption(storageInputMax);
-            ConvertOption convertOption = GetConvertOption(convertInputMax);
-            StorageOption storageWriteOption = GetWriteStorageOption(storageInputMax);
+            StorageOption storageReadOption = GetStorageOption(storageInputMax, OperationType.READ);
+            ConvertOption convertOptionFrom = GetConvertOption(convertInputMax, OperationType.READ);
+            ConvertOption convertOptionTo = GetConvertOption(convertInputMax, OperationType.WRITE);
+            StorageOption storageWriteOption = GetStorageOption(storageInputMax, OperationType.WRITE);
 
             FileManager fileManager = new(GetFileReader(storageReadOption),
-                                          GetFileConverter(convertOption),
+                                          GetFileConverter(convertOptionFrom),
+                                          GetFileConverter(convertOptionTo),
                                           GetFileWriter(storageWriteOption));
+
+            fileManager.RunConvert($".{convertOptionFrom}", $".{convertOptionTo}");
         }
 
         #region Get Option Input
-        private static StorageOption GetWriteStorageOption(int storageInputMax)
+        private static StorageOption GetStorageOption(int storageInputMax, OperationType operationType)
         {
             int input;
             bool isInputWithInRange;
 
             do
             {
-                ShowMessage.AskForWriteStorage();
+                ShowMessage.AskForStorage(operationType);
                 input = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("###################");
 
@@ -47,18 +51,17 @@ namespace Continero.Homework
                     Console.WriteLine($"Please enter a number within range 0 - {storageInputMax}");
 
             } while (!isInputWithInRange);
-            StorageOption storageWriteOption = (StorageOption)input;
-            return storageWriteOption;
+            return (StorageOption)input;
         }
 
-        private static ConvertOption GetConvertOption(int convertInputMax)
+        private static ConvertOption GetConvertOption(int convertInputMax, OperationType operationType)
         {
             int input;
             bool isInputWithInRange;
 
             do
             {
-                ShowMessage.AskForConvertType();
+                ShowMessage.AskForConvertType(operationType);
                 input = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("###################");
 
@@ -71,39 +74,9 @@ namespace Continero.Homework
             return (ConvertOption)input;
         }
 
-        private static StorageOption GetReadStorageOption(int storageInputMax)
-        {
-            int input;
-            bool isInputWithInRange;
-
-            do
-            {
-                ShowMessage.AskForReadStorage();
-                input = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("###################");
-
-                isInputWithInRange = input >= 0 && input <= storageInputMax;
-
-                if (!isInputWithInRange)
-                    Console.WriteLine($"Please enter a number within range 0 - {storageInputMax}");
-
-            } while (!isInputWithInRange);
-            return (StorageOption)input;
-        }
-        #endregion 
+        #endregion
 
         #region Get Injection
-        private static IFileConverter GetFileConverter(ConvertOption convertOption)
-        {
-            return convertOption switch
-            {
-                ConvertOption.TO_JSON => new JsonConverter(),
-                ConvertOption.TO_XML => new XmlConverter(),
-                ConvertOption.TO_YAML => new YamlConverter(),
-                _ => new JsonConverter(),
-            };
-        }
-
         private static IFileReader GetFileReader(StorageOption storageReadOption)
         {
             return storageReadOption switch
@@ -112,6 +85,17 @@ namespace Continero.Homework
                 StorageOption.CLOUD => new CloudStorageFileReader(),
                 StorageOption.HTTP => new CloudStorageFileReader(),
                 _ => new CloudStorageFileReader(),
+            };
+        }
+
+        private static IFileConverter GetFileConverter(ConvertOption convertOption)
+        {
+            return convertOption switch
+            {
+                ConvertOption.JSON => new JsonConverter(),
+                ConvertOption.XML => new XmlConverter(),
+                ConvertOption.YAML => new YamlConverter(),
+                _ => new JsonConverter(),
             };
         }
 
