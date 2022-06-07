@@ -26,7 +26,7 @@ namespace Backend_Homework.Concrete
             string sourcePath = string.Empty;
             do
             {
-                Console.WriteLine("Enter the name of the file you want to upload (with extension)");
+                Console.WriteLine("Enter the name of the file you want to upload (without extension)");
                 string sourceFileName = Console.ReadLine();
                 Console.WriteLine("###################");
 

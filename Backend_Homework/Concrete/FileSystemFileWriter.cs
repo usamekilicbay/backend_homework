@@ -35,7 +35,7 @@ namespace Backend_Homework.Concrete
             string targetFileName;
             do
             {
-                Console.WriteLine("Enter a name for the new file (with extension)");
+                Console.WriteLine("Enter a name for the new file (without extension)");
                 targetFileName = Console.ReadLine();
             } while (string.IsNullOrEmpty(targetFileName));
             return targetFileName;
