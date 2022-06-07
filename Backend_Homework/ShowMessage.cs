@@ -4,7 +4,14 @@
     {
         public static void AskForStorage(OperationType operationType)
         {
-            Console.WriteLine($"Please chose storage for file {operationType == OperationType.READ: \"read\" : \"write\"} operation");
+            string operationName = operationType switch
+            {
+                OperationType.READ => "read",
+                OperationType.WRITE => "write",
+                _ => "read",
+            };
+
+            Console.WriteLine($"Please chose storage for file {operationName} operation");
             Console.WriteLine($"{(int)StorageOption.FILE_SYSTEM} = {StorageOption.FILE_SYSTEM}");
             Console.WriteLine($"{(int)StorageOption.CLOUD} = {StorageOption.CLOUD}");
             Console.WriteLine($"{(int)StorageOption.HTTP} = {StorageOption.HTTP}");
