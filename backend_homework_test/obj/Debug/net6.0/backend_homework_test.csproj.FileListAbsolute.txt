@@ -97,3 +97,9 @@ C:\Users\usame\source\repos\backend_homework\backend_homework_test\obj\Debug\net
 C:\Users\usame\source\repos\backend_homework\backend_homework_test\obj\Debug\net6.0\backend_homework_test.pdb
 C:\Users\usame\source\repos\backend_homework\backend_homework_test\obj\Debug\net6.0\backend_homework_test.genruntimeconfig.cache
 C:\Users\usame\source\repos\backend_homework\backend_homework_test\obj\Debug\net6.0\ref\backend_homework_test.dll
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\CoverletSourceRootsMapping
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\Backend_Homework.deps.json
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\Backend_Homework.runtimeconfig.json
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\Backend_Homework.exe
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\Backend_Homework.dll
+C:\Users\usame\source\repos\backend_homework\backend_homework_test\bin\Debug\net6.0\Backend_Homework.pdb
