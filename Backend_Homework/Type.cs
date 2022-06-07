@@ -13,4 +13,10 @@
         XML,
         YAML
     }
+
+    public enum OperationType
+    {
+        READ,
+        WRITE
+    }
 }
