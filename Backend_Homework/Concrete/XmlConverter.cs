@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Backend_Homework.Concrete
 {
-    internal class XmlConverter : IFileConverter
+    public class XmlConverter : IFileConverter
     {
         public Document GetDocument(string fileContent)
         {
