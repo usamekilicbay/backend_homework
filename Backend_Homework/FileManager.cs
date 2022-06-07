@@ -22,7 +22,7 @@ namespace Backend_Homework
         {
             try
             {
-                string fileContext = _fileReader.ReadFile($"{_fileReader.GetSourcePath()}{extensionFrom}");
+                string fileContext = _fileReader.ReadFile($"{_fileReader.GetSourcePath(extensionFrom)}");
                 Document document = _fileConverterFrom.GetDocument(fileContext);
                 string serializedDoc = _fileConverterTo.GetConvertedFile(document);
 
