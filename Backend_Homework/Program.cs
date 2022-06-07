@@ -30,7 +30,7 @@ namespace Continero.Homework
                                           GetFileConverter(convertOptionTo),
                                           GetFileWriter(storageWriteOption));
 
-            fileManager.RunConvert($".{convertOptionFrom}", $".{convertOptionTo}");
+            fileManager.RunConvert($".{convertOptionFrom.ToString().ToLower()}", $".{convertOptionTo.ToString().ToLower()}");
         }
 
         #region Get Option Input
