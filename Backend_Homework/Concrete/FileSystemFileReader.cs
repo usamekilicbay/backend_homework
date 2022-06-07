@@ -20,7 +20,7 @@ namespace Backend_Homework.Concrete
             }
         }
 
-        public string GetSourcePath()
+        public string GetSourcePath(string fileExtension)
         {
             bool isFound = false;
             string sourcePath = string.Empty;
@@ -37,6 +37,7 @@ namespace Backend_Homework.Concrete
                     continue;
                 }
 
+                sourceFileName += fileExtension;
                 sourcePath = Path.Combine(Directory.GetCurrentDirectory(), SOURCE_FOLDER, sourceFileName);
 
                 isFound = File.Exists(sourcePath);
