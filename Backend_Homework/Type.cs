@@ -9,8 +9,8 @@
     
     public enum ConvertOption
     {
-        TO_JSON,
-        TO_XML,
-        TO_YAML
+        JSON,
+        XML,
+        YAML
     }
 }
