@@ -11,8 +11,6 @@ namespace Backend_Homework
             _fileConverterFrom = fileConverterFrom;
             _fileConverterTo = fileConverterTo;
             _fileWriter = fileWriter;
-
-            RunConvert();
         }
 
         private readonly IFileReader _fileReader;
@@ -20,15 +18,15 @@ namespace Backend_Homework
         private readonly IFileConverter _fileConverterTo;
         private readonly IFileWriter _fileWriter;
 
-        private void RunConvert()
+        public void RunConvert(string extensionFrom, string extensionTo)
         {
             try
             {
-                string fileContext = _fileReader.ReadFile(_fileReader.GetSourcePath());
+                string fileContext = _fileReader.ReadFile($"{_fileReader.GetSourcePath()}{extensionFrom}");
                 Document document = _fileConverterFrom.GetDocument(fileContext);
                 string serializedDoc = _fileConverterTo.GetConvertedFile(document);
 
-                _fileWriter.WriteFile(_fileWriter.GetTargetPath(_fileWriter.GetTargetFileName()), serializedDoc);
+                _fileWriter.WriteFile($"{_fileWriter.GetTargetPath(_fileWriter.GetTargetFileName())}{extensionTo}", serializedDoc);
                 Console.WriteLine("Operation successful!");
             }
             catch (Exception ex)
